@@ -21,10 +21,17 @@ jobs:
     #     # docker build --tag ghcr.io/$GITHUB_ACTOR/pnovel:latest \
     #     # --tag ghcr.io/$GITHUB_ACTOR/pnovel:$(echo $GITHUB_SHA | head -c7) \
         
+    # - name: Build Docker Image
+    #   run: |
+    #     docker build --file ./docker/Dockerfile --tag ghcr.io/$GITHUB_ACTOR/pnovel:latest \
+    #     --tag ghcr.io/$GITHUB_ACTOR/pnovel:$(echo $GITHUB_SHA | head -c7) \
+
+
     - name: Build Docker Image
       run: |
-        docker build --file ./docker/Dockerfile --tag ghcr.io/$GITHUB_ACTOR/pnovel:latest \
+        docker buildx build --tag ghcr.io/$GITHUB_ACTOR/pnovel:latest \
         --tag ghcr.io/$GITHUB_ACTOR/pnovel:$(echo $GITHUB_SHA | head -c7) \
+        .  # 現在のディレクトリをコンテキストとして指定
 
 
     - name: Push Docker Image
